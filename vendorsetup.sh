@@ -37,7 +37,7 @@ fi
 if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
    	export TW_DEFAULT_LANGUAGE="en"
 	export LC_ALL="C"
-        export TARGET_DEVICE_ALT="citrus, lime, lemon, pomelo, juice, chime"
+        export TARGET_DEVICE_ALT="citrus, lime, lemon, pomelo, juice, chime, sm6115"
  	export ALLOW_MISSING_DEPENDENCIES=true
 	export FOX_RECOVERY_SYSTEM_PARTITION="/dev/block/mapper/system"
 	export FOX_RECOVERY_VENDOR_PARTITION="/dev/block/mapper/vendor"
@@ -75,9 +75,11 @@ if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
         export OF_STATUS_INDENT_RIGHT=48
 	export OF_CLOCK_POS=1
 
-	# R12.1 Settings
-	export FOX_VERSION="R12.1_3"
-	export OF_MAINTAINER="frstprjkt."
+	# R11.1 Settings
+	export FOX_VERSION="R11.1"
+	export OF_MAINTAINER="Rockford the Roe"
+	export FOX_VARIANT="A12"
+	
 
 	# let's see what are our build VARs
 	if [ -n "$FOX_BUILD_LOG_FILE" -a -f "$FOX_BUILD_LOG_FILE" ]; then
@@ -86,5 +88,10 @@ if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
    	   export | grep "TARGET_" >> $FOX_BUILD_LOG_FILE
   	   export | grep "TW_" >> $FOX_BUILD_LOG_FILE
  	fi
+	
+else
+	if [ -z "$FOX_BUILD_DEVICE" -a -z "$BASH_SOURCE" ]; then
+		echo "I: This script requires bash. Not processing the $FDEVICE $(basename $0)"
+	fi
 fi
 #
